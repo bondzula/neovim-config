@@ -168,6 +168,12 @@ local schemas = {
   },
 }
 
+local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
+
+if not lspconfig_ok then
+	return
+end
+
 local function extend(tab1, tab2)
   for _, value in ipairs(tab2) do
     table.insert(tab1, value)
@@ -175,12 +181,16 @@ local function extend(tab1, tab2)
   return tab1
 end
 
-local extended_schemas = extend(schemas, default_schemas)
+-- local extended_schemas = extend(schemas, default_schemas)
 
-local opts = {
+
+lspconfig.jsonls.setup({
+  filetypes = { "json" },
+  on_attach = require("user.lsp.handlers").on_attach,
+  capabilities = require("user.lsp.handlers").capabilities,
   settings = {
     json = {
-      schemas = extended_schemas,
+      schemas = schemas
     },
   },
   setup = {
@@ -192,6 +202,4 @@ local opts = {
       },
     },
   },
-}
-
-return opts
+})
