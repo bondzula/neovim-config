@@ -1,0 +1,16 @@
+dotfiles
+TrueNAS
+Intelephens
+Ripgrep
+ripgrep
+vue
+Anisble
+ansible
+homebrew
+nvim
+jumplist
+changelist
+Neovim
+filetypes
+NeogitCommitMessage
+neovim
