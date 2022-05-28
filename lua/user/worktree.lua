@@ -23,7 +23,7 @@ which_key.register({
 	g = {
     name = "Git",
 
-		b = { "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>", "Manage Git Worktrees" },
+		o = { "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>", "Manage Git Worktrees" },
 		n = { "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>", "New Git Worktree" },
 	},
 }, { prefix = "<leader>" })
