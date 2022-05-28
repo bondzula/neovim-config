@@ -1,10 +1,16 @@
-local Dictionary_file = {
+local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
+
+if not lspconfig_ok then
+	return
+end
+
+local dictionary_file = {
   ["en-US"] = { vim.fn.stdpath("config") .. "/spell/dictionary.txt" }
 }
-local DisabledRules_file = {
+local disabled_rules_file = {
   ["en-US"] = { vim.fn.stdpath("config") .. "/spell/disable.txt" }
 }
-local FalsePositives_file = {
+local false_positives_file = {
   ["en-US"] = { vim.fn.stdpath("config") .. "/spell/false.txt" }
 }
 
@@ -20,6 +26,31 @@ local function readFiles(files)
   return dict
 end
 
+lspconfig.ltex.setup({
+  filetypes = { "gitcommit", "markdown", "org", "plaintex", "tex", "NeogitCommitMessage" },
+  on_attach = require("user.lsp.handlers").on_attach,
+  capabilities = require("user.lsp.handlers").capabilities,
+	settings = {
+		ltex = {
+			language = "en-US",
+			additionalRules = {
+				enablePickyRules = true,
+				languageModel = "$XDG_DATA_HOME/ngrams/",
+			},
+      dictionary = {
+        ["en-US"] = readFiles(dictionary_file['en-US'] or {})
+      },
+      disabledRules = {
+        ["en-US"] = readFiles(disabled_rules_file['en-US'] or {})
+      },
+      hiddenFalsePositives = {
+        ["en-US"] = readFiles(false_positives_file['en-US'] or {})
+      },
+		},
+	}
+})
+
+
 local function findLtexLang()
   local buf_clients = vim.lsp.buf_get_clients()
   for _, client in ipairs(buf_clients) do
@@ -32,11 +63,11 @@ end
 local function findLtexFiles(filetype, value)
   local files = nil
   if filetype == 'dictionary' then
-    files = Dictionary_file[value or findLtexLang()]
+    files = dictionary_file[value or findLtexLang()]
   elseif filetype == 'disable' then
-    files = DisabledRules_file[value or findLtexLang()]
+    files = disabled_rules_file[value or findLtexLang()]
   elseif filetype == 'falsePositive' then
-    files = FalsePositives_file[value or findLtexLang()]
+    files = false_positives_file[value or findLtexLang()]
   end
 
   if files then
@@ -59,7 +90,7 @@ local function updateConfig(lang, configtype)
     if configtype == 'dictionary' then
       if client.config.settings.ltex.dictionary then
         client.config.settings.ltex.dictionary = {
-          [lang] = readFiles(Dictionary_file[lang])
+          [lang] = readFiles(dictionary_file[lang])
         };
         return client.notify('workspace/didChangeConfiguration', client.config.settings)
       else
@@ -68,7 +99,7 @@ local function updateConfig(lang, configtype)
     elseif configtype == 'disable' then
       if client.config.settings.ltex.disabledRules then
         client.config.settings.ltex.disabledRules = {
-          [lang] = readFiles(DisabledRules_file[lang])
+          [lang] = readFiles(disabled_rules_file[lang])
         };
         return client.notify('workspace/didChangeConfiguration', client.config.settings)
       else
@@ -78,7 +109,7 @@ local function updateConfig(lang, configtype)
     elseif configtype == 'falsePositive' then
       if client.config.settings.ltex.hiddenFalsePositives then
         client.config.settings.ltex.hiddenFalsePositives = {
-          [lang] = readFiles(FalsePositives_file[lang])
+          [lang] = readFiles(false_positives_file[lang])
         };
         return client.notify('workspace/didChangeConfiguration', client.config.settings)
       else
