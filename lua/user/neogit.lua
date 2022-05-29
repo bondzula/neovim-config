@@ -70,9 +70,9 @@ if not which_key_status_ok then
 end
 
 which_key.register({
-	g = {
-    name = "Git",
-
-		g = { "<cmd>Neogit<cr>", "Neogit" },
+	["<leader>g"] = {
+		g = { neogit.open,                               "Neogit" },
+    c = { function() neogit.open({ "commit" }) end,  "Commit" },
+    p = { function() neogit.open({ "push" }) end,    "Push" },
 	},
-}, { prefix = "<leader>" })
+})
