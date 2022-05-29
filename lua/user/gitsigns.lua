@@ -53,16 +53,26 @@ gitsigns.setup({
 
   on_attach = function(bufnr)
     -- Navigation
-    vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr>", { buffer = bufnr })
-    vim.keymap.set("n", "[g", "<cmd>Gitsigns previous_hunk<cr>", { buffer = bufnr })
+    require('which-key').register({
+      ["]"] = {
+        S = { gitsigns.next_hunk, "Next Hunk",  buffer = bufnr },
+      },
+      ["["] = {
+        S = { gitsigns.prev_hunk, "Previous Hunk",  buffer = bufnr },
+      },
+      ["<leader>g"] = {
+        S = { gitsigns.stage_buffer,                "Stage Buffer",         buffer = bufnr },
+        s = { gitsigns.stage_hunk,                  "Stage Hunk",           buffer = bufnr },
+        R = { gitsigns.reset_buffer,                "Reset Buffer",         buffer = bufnr },
+        r = { gitsigns.stage_hunk,                  "Reset Hunk",           buffer = bufnr },
+        B = { gitsigns.toggle_current_line_blame,   "Toggle line blame",    buffer = bufnr },
+        b = { gitsigns.blame_line,                  "Blame Line",           buffer = bufnr },
+        k = { gitsigns.preview_hunk,                "Preview Hunk",         buffer = bufnr },
+        u = { gitsigns.undo_stage_hunk,             "Undo Last Stage Hunk", buffer = bufnr },
+      }
+    })
 
     -- Actions
-    vim.keymap.set("n", "<leader>gS", "<cmd>Gitsigns stage_buffer<cr>", { buffer = bufnr })
-    vim.keymap.set("n", "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>", { buffer = bufnr })
-    vim.keymap.set("n", "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", { buffer = bufnr })
-    vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>", { buffer = bufnr })
-    vim.keymap.set("n", "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<cr>", { buffer = bufnr })
-    vim.keymap.set("n", "<leader>gk", "<cmd>Gitsigns preview_hunk<cr>", { buffer = bufnr })
     vim.keymap.set({ "n", "v" }, "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", { buffer = bufnr })
     vim.keymap.set({ "n", "v" }, "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", { buffer = bufnr })
 
