@@ -24,6 +24,7 @@ require("user.octo")
 require("user.zk-nvim")
 require("user.neogen")
 require("user.luasnip")
+require("user.toggletasks")
 
 -- Colorschemes
 require("user.themes.catppuccin")

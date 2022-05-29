@@ -115,6 +115,9 @@ return packer.startup(function(use)
   -- Treesitter powerd anotations
   use "danymat/neogen"
 
+  -- Run predefined tasks
+  use 'jedrzejboczar/toggletasks.nvim'
+
   -- Git
   use "lewis6991/gitsigns.nvim"
   use "pwntester/octo.nvim"
