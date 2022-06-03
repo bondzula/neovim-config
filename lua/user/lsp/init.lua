@@ -6,9 +6,9 @@ if not lsp_installer_ok then
 end
 
 lsp_installer.setup({
-    ensure_installed = { "html", "cssls", "tailwindcsc", "stylelint_lsp",
+    ensure_installed = { "html", "cssls", "tailwindcss", "stylelint_lsp",
     "gopls", "jsonls", "rust_analyzer", "tflint", "terraformls", "ansiblels",
-    "dockerls", "bashls", "emmet_ls", "intelephense", "ltex-ls", "sumneko_lua",
+    "dockerls", "bashls", "emmet_ls", "intelephense", "ltex", "sumneko_lua",
     "tsserver", "volar", "zk" },
 })
 
