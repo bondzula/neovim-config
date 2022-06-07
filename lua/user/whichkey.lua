@@ -101,7 +101,7 @@ local normalLeaderMappings = {
 		name = "Search",
 
     f = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Find in File"},
-    F = { "<cmd>Telescope live_grep_raw live_grep_raw<cr>", "Find in Files" },
+    F = { "<cmd>Telescope live_grep_args live_grep_args<cr>", "Find in Files" },
 	},
 
 	t = {
