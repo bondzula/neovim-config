@@ -15,7 +15,7 @@ null_ls.setup({
 		formatting.trim_whitespace,
 
 		-- Javascript (js, jsx, vue)
-		formatting.prettierd,
+		-- formatting.prettierd,
 		diagnostics.eslint_d,
 
     diagnostics.vale,
@@ -25,8 +25,8 @@ null_ls.setup({
 		-- TODO: phpstan https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#about-97
 
 		-- Stylelint (css, scss, less)
-		formatting.stylelint,
-		diagnostics.stylelint,
+		-- formatting.stylelint,
+		-- diagnostics.stylelint,
 
     -- YAML
     diagnostics.yamllint,
