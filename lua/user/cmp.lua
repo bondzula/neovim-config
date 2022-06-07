@@ -15,11 +15,6 @@ local check_backspace = function()
 	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
--- Disable copilot tab mapping
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_assume_mapped = true
-vim.g.copilot_tab_fallback = ""
-
 --   פּ ﯟ   some other good icons
 local kind_icons = {
 	Text = "",
@@ -100,18 +95,6 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-		["<C-J>"] = cmp.mapping(function(fallback)
-			cmp.mapping.abort()
-			local copilot_keys = vim.fn["copilot#Accept"]()
-			if copilot_keys ~= "" then
-				vim.api.nvim_feedkeys(copilot_keys, "i", true)
-			else
-				fallback()
-			end
-		end, {
-			"i",
-			"s",
-		}),
 	},
 	enabled = function()
 		if vim.bo.ft == "TelescopePrompt" then
@@ -140,7 +123,6 @@ cmp.setup({
 	},
 	sources = {
 		{ name = "nvim_lsp" },
-    { name = "copilot" },
 		{ name = "luasnip" },
     { name = "git" },
 		{ name = "path" },
