@@ -48,7 +48,6 @@ return packer.startup(function(use)
   use "windwp/nvim-ts-autotag" -- Autotags
   use "numToStr/Comment.nvim" -- Easily comment stuff
   use "kyazdani42/nvim-web-devicons"
-  use "kyazdani42/nvim-tree.lua"
   use "famiu/bufdelete.nvim"
   use "nvim-lualine/lualine.nvim"
   use "akinsho/toggleterm.nvim"
@@ -77,7 +76,7 @@ return packer.startup(function(use)
   use "hrsh7th/nvim-cmp" -- The completion plugin
   use "hrsh7th/cmp-path" -- path completions
   use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-copilot"
+  -- use "hrsh7th/cmp-copilot"
   use "petertriho/cmp-git"
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
 
@@ -90,6 +89,7 @@ return packer.startup(function(use)
   use "williamboman/nvim-lsp-installer" -- simple to use language server installer
   use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
   use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
+  use "b0o/schemastore.nvim"
 
   -- AI completion
   use 'github/copilot.vim'
@@ -98,7 +98,7 @@ return packer.startup(function(use)
   use {
     "nvim-telescope/telescope.nvim",
     requires = {
-        { 'nvim-telescope/telescope-live-grep-raw.nvim' }
+        { 'nvim-telescope/telescope-live-grep-args.nvim' }
     }
   }
 
