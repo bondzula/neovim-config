@@ -112,6 +112,7 @@ return packer.startup(function(use)
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use "JoosepAlviste/nvim-ts-context-commentstring"
 
+  use 'nvim-treesitter/playground'
   -- Treesitter powerd anotations
   use "danymat/neogen"
 
