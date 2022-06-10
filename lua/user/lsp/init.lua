@@ -25,11 +25,11 @@ end
 -- Servers installed using LSP installer
 local local_servers = {
   "html", "cssls", "bashls", "dockerls", "emmet_ls", "gopls", "intelephense",
-  "jsonls", "zk", "rust_analyzer", "tailwindcss", "terraformls", "tsserver",
-  "rnix",
+  "zk", "rust_analyzer", "tailwindcss", "terraformls", "tsserver", "rnix",
+  "volar"
 }
 
--- Servers installed on the system
+-- Servers installed on the systm
 local global_servers = {
   "sumneko_lua"
 }
@@ -38,6 +38,8 @@ local global_servers = {
 lsp_installer.setup({
   ensure_installed = local_servers,
 })
+
+-- lsp_config.sumneko_lua.setup({})
 
 local repeatable = {
   on_attach = require("user.lsp.handlers").on_attach,
@@ -50,12 +52,12 @@ for _, lsp in pairs(extend(local_servers, global_servers)) do
   -- the file is present, add "settings" key from that file to existing table
   local ok, config = pcall(require, "user.lsp.settings." .. lsp)
 
-  if ok then
-    lsp_config[lsp].setup(object_assign(repeatable, config[lsp]))
-  end
-
   if not ok then
     lsp_config[lsp].setup(repeatable)
+  end
+
+  if ok then
+    lsp_config[lsp].setup(object_assign(repeatable, config[lsp]))
   end
 end
 

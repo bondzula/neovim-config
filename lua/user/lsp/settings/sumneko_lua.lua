@@ -1,6 +1,7 @@
 local M = {}
 
 M.sumneko_lua = {
+  filetype = { "lua" },
 	settings = {
 		Lua = {
 			diagnostics = {

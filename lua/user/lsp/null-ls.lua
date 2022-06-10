@@ -6,6 +6,7 @@ end
 -- For esier usage
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
+local code_actions = null_ls.builtins.code_actions
 
 null_ls.setup({
 	debug = false,
@@ -15,8 +16,10 @@ null_ls.setup({
 		formatting.trim_whitespace,
 
 		-- Javascript (js, jsx, vue)
-		-- formatting.prettierd,
+		formatting.prettier,
+
 		diagnostics.eslint_d,
+    code_actions.eslint_d,
 
     diagnostics.vale,
 
@@ -24,14 +27,11 @@ null_ls.setup({
 		-- TODO: php_cs_fixer
 		-- TODO: phpstan https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#about-97
 
-		-- Stylelint (css, scss, less)
-		-- formatting.stylelint,
-		-- diagnostics.stylelint,
-
     -- YAML
     diagnostics.yamllint,
 
     -- Ansible
     diagnostics.ansiblelint,
 	},
+  on_attach = require("user.lsp.handlers").on_attach,
 })
