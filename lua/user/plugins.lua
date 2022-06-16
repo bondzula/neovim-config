@@ -61,7 +61,10 @@ return packer.startup(function(use)
   use "wellle/targets.vim"
   use { 'michaelb/sniprun', run = 'bash ./install.sh'}
 
-  use "chaoren/vim-wordmotion"
+  -- Improve navigation over camel or snake case words
+  use { "chaoren/vim-wordmotion", config = function()
+    vim.g.wordmotion_prefix = "<leader>"
+  end }
 
   -- Notes
   use "mickael-menu/zk-nvim"
