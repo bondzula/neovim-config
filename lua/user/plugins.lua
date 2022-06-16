@@ -23,6 +23,16 @@ vim.cmd [[
   augroup end
 ]]
 
+-- Autocommand that reloads neovim whenever you save the plugins.lua file
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--   callback = function ()
+--     vim.cmd [[
+--       plugins.lua source <afile>
+--       PackerSync
+--     ]]
+--   end
+-- })
+
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
@@ -42,33 +52,29 @@ packer.init {
 return packer.startup(function(use)
   -- My plugins here
   use "wbthomason/packer.nvim" -- Have packer manage itself
-  use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
-  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
-  use "windwp/nvim-ts-autotag" -- Autotags
   use "numToStr/Comment.nvim" -- Easily comment stuff
   use "kyazdani42/nvim-web-devicons"
   use "famiu/bufdelete.nvim"
-  use "nvim-lualine/lualine.nvim"
-  use "akinsho/toggleterm.nvim"
   use "lewis6991/impatient.nvim"
-  use "lukas-reineke/indent-blankline.nvim"
-  use "goolord/alpha-nvim"
+  use "goolord/alpha-nvim" -- Startup dashboard
   use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
   use "folke/which-key.nvim"
-  use "AndrewRadev/splitjoin.vim"
   use "editorconfig/editorconfig-vim"
   use "wellle/targets.vim"
-  use { 'michaelb/sniprun', run = 'bash ./install.sh'}
+  use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
+  use 'stevearc/dressing.nvim'
 
   -- Improve navigation over camel or snake case words
   use { "chaoren/vim-wordmotion", config = function()
     vim.g.wordmotion_prefix = "<leader>"
   end }
 
-  -- Notes
-  use "mickael-menu/zk-nvim"
+  -- Tmux integration
+  use 'waylonwalker/Telegraph.nvim'
 
+  -- TODO: Use those plugins
+  use "AndrewRadev/splitjoin.vim"
   use "ThePrimeagen/harpoon"
 
   -- surround
@@ -78,62 +84,64 @@ return packer.startup(function(use)
     })
   end }
 
+  -- Statusline
+  use "nvim-lualine/lualine.nvim"
+
+  -- Embed lualine into tmux status line
+  use { "vimpostor/vim-tpipeline", config = function()
+    vim.g.tpipeline_autoembed = 1
+    vim.g.tpipeline_cursormoved = 1
+  end }
+
+  -- Notes
+  use "mickael-menu/zk-nvim"
+
   -- Colorschemes
   use({ "catppuccin/nvim", as = "catppuccin" })
 
   -- cmp plugins
-  use "hrsh7th/nvim-cmp" -- The completion plugin
-  use "hrsh7th/cmp-path" -- path completions
+  use "hrsh7th/nvim-cmp"
+  use "hrsh7th/cmp-path"
   use "hrsh7th/cmp-nvim-lsp"
-  -- use "hrsh7th/cmp-copilot"
   use "petertriho/cmp-git"
-  use "saadparwaiz1/cmp_luasnip" -- snippet completions
+  use "saadparwaiz1/cmp_luasnip"
 
   -- snippets
-  use "L3MON4D3/LuaSnip" --snippet engine
-  use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
+  use "L3MON4D3/LuaSnip"
 
   -- LSP
-  use "neovim/nvim-lspconfig" -- enable LSP
-  use "williamboman/nvim-lsp-installer" -- simple to use language server installer
-  use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
-  use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
+  use "neovim/nvim-lspconfig"
+  use "williamboman/nvim-lsp-installer"
+  use "jose-elias-alvarez/null-ls.nvim"
   use "b0o/schemastore.nvim"
 
-  -- AI completion
-  use 'github/copilot.vim'
-
   -- Telescope
-  use {
-    "nvim-telescope/telescope.nvim",
-    requires = {
-        { 'nvim-telescope/telescope-live-grep-args.nvim' }
-    }
-  }
-
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use "nvim-telescope/telescope.nvim"
+  use 'nvim-telescope/telescope-live-grep-args.nvim'
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   -- Treesitter
-  use {
-    "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
-  }
+  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use "JoosepAlviste/nvim-ts-context-commentstring"
-
   use 'nvim-treesitter/playground'
+
+  -- Treesitter powerd auto closing
+  use "windwp/nvim-autopairs"
+  use "windwp/nvim-ts-autotag"
+
   -- Treesitter powerd anotations
   use "danymat/neogen"
 
-  -- Run predefined tasks
-  use 'jedrzejboczar/toggletasks.nvim'
+  -- Show a color of hexadecimal value
+  use "norcalli/nvim-colorizer.lua"
 
   -- Git
   use "lewis6991/gitsigns.nvim"
   use "pwntester/octo.nvim"
   use 'ruifm/gitlinker.nvim'
   use "ThePrimeagen/git-worktree.nvim"
-  use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim' }}
+  use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim' } }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

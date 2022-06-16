@@ -6,6 +6,7 @@ end
 
 npairs.setup {
   check_ts = true,
+  -- This is treesitter integration
   ts_config = {
     lua = { "string", "source" },
     javascript = { "string", "template_string" },

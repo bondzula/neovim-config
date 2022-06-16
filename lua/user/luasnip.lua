@@ -145,4 +145,4 @@ vim.keymap.set({ "i", "s" }, "<c-l>", function()
 end, { silent = true })
 
 -- reload the snippets on the fly instead of restarting the editor
-vim.keymap.set("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/lua/user/luasnip.lua<cr>")
+vim.keymap.set("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/lua/bondzula/luasnip.lua<cr>")

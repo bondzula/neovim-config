@@ -54,12 +54,8 @@ gitsigns.setup({
   on_attach = function(bufnr)
     -- Navigation
     require('which-key').register({
-      ["]"] = {
-        S = { gitsigns.next_hunk, "Next Hunk",  buffer = bufnr },
-      },
-      ["["] = {
-        S = { gitsigns.prev_hunk, "Previous Hunk",  buffer = bufnr },
-      },
+      ["]h"] = { function() gitsigns.next_hunk({ navigation_message = false, preview = true }) end, "Next Hunk",  buffer = bufnr },
+      ["[h"] = { function() gitsigns.prev_hunk({ navigation_message = false, preview = true }) end, "Next Hunk", buffer = bufnr },
       ["<leader>g"] = {
         S = { gitsigns.stage_buffer,                "Stage Buffer",         buffer = bufnr },
         s = { gitsigns.stage_hunk,                  "Stage Hunk",           buffer = bufnr },
