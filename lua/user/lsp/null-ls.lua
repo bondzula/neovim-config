@@ -32,6 +32,9 @@ null_ls.setup({
 
     -- Ansible
     diagnostics.ansiblelint,
+
+    -- Bash formatter
+    formatting.shfmt
 	},
   on_attach = require("user.lsp.handlers").on_attach,
 })
