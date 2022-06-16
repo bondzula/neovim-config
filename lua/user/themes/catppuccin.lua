@@ -5,14 +5,14 @@ if not status_ok then
 end
 
 catppuccin.setup({
-	transparent_background = true,
-	term_colors = false,
+	transparent_background = false,
+	term_colors = true,
 	styles = {
 		comments = "italic",
-		functions = "italic",
-		keywords = "italic",
+		functions = "NONE",
+		keywords = "NONE",
 		strings = "NONE",
-		variables = "italic",
+		variables = "NONE",
 	},
 	integrations = {
 		treesitter = true,
@@ -34,11 +34,6 @@ catppuccin.setup({
 		cmp = true,
 		gitsigns = true,
 		telescope = true,
-		nvimtree = {
-			enabled = true,
-			show_root = false,
-			transparent_panel = true,
-		},
 		which_key = true,
 		indent_blankline = {
 			enabled = true,
@@ -50,6 +45,7 @@ catppuccin.setup({
 		notify = true,
 		telekasten = false,
     symbols_outline = false,
+    markdown = true,
 	},
 })
 
