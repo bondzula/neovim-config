@@ -29,11 +29,6 @@ local function lsp_keymaps(bufnr)
 
 	-- Telescope specific
 	vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { buffer = bufnr })
-	vim.keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics<cr>", { buffer = bufnr })
-	vim.keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references theme=cursor<cr>", { buffer = bufnr })
-	vim.keymap.set("n", "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", { buffer = bufnr })
-	vim.keymap.set("n", "<leader>sS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { buffer = bufnr })
-
 	vim.keymap.set("n", "gh", vim.diagnostic.open_float, { buffer = bufnr })
 	vim.keymap.set("n", "]e", vim.diagnostic.goto_next, { buffer = bufnr })
 	vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, { buffer = bufnr })
