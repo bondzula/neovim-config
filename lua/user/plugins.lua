@@ -67,7 +67,13 @@ return packer.startup(function(use)
   use "mickael-menu/zk-nvim"
 
   use "ThePrimeagen/harpoon"
-  use "ur4ltz/surround.nvim"
+
+  -- surround
+  use { "ur4ltz/surround.nvim", config = function()
+    require("surround").setup({
+      mapping_style = "sandwich"
+    })
+  end }
 
   -- Colorschemes
   use({ "catppuccin/nvim", as = "catppuccin" })
