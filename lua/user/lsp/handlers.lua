@@ -35,12 +35,20 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+
 	if client.name == "tsserver" then
 		client.server_capabilities.document_formatting = false
+    client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
+	end
+
+	if client.name == "volar" then
+		client.server_capabilities.document_formatting = false
+    client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
 	end
 
 	if client.name == "stylelint_lsp" then
 		client.server_capabilities.document_formatting = false
+    client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
 	end
 
 	lsp_keymaps(bufnr)
