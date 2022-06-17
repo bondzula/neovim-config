@@ -1,4 +1,9 @@
 local options = {
+  background = "dark",                     -- Prefer dark background
+  shell = "zsh",                           -- Set default shell
+  hidden = true,
+  lazyredra = true,                        -- Don't update screen while macro or command is executing
+  autoread = true,                         -- Automatically read changes made outside vim
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
@@ -45,6 +50,11 @@ local options = {
 
 for k, v in pairs(options) do
   vim.opt[k] = v
+end
+
+-- Use ripgrep as the grep program, if available
+if (fn.executable("rg") == 1) then
+  vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 end
 
 -- Appends
