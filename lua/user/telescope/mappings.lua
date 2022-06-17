@@ -41,6 +41,9 @@ map("n", "<leader>lS", function () telescope.lsp_workspace_symbols(M.cursor()) e
 map("n", "<leader>ld", function () telescope.diagnostics(M.diagnostis()) end)
 -- map("n", "<leader>lD", function () telescope.diagnostics(M.diagnostis()) end)
 
+-- Spell fix
+map("n", "z=", function() require("telescope.builtin").spell_suggest(M.cursor()) end)
+
 -- Find files
 map("n", "<C-p>", telescope.find_files)
 
