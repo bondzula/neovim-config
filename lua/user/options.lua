@@ -2,7 +2,7 @@ local options = {
   background = "dark",                     -- Prefer dark background
   shell = "zsh",                           -- Set default shell
   hidden = true,
-  lazyredra = true,                        -- Don't update screen while macro or command is executing
+  lazyredraw = true,                        -- Don't update screen while macro or command is executing
   autoread = true,                         -- Automatically read changes made outside vim
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
@@ -40,12 +40,12 @@ local options = {
 
   inccommand = "nosplit",
 
-  foldlevel = 20,
-  foldmethod = 'expr',
-  foldexpr = 'nvim_treesitter#foldexpr()',
+  -- foldlevel = 20,
+  -- foldmethod = 'expr',
+  -- foldexpr = 'nvim_treesitter#foldexpr()',
 
   laststatus = 3, -- Global statusline
-  cmdheight = 0, -- By defauilt hide command line
+  cmdheight = 1, -- By defauilt hide command line
 }
 
 for k, v in pairs(options) do
@@ -53,8 +53,8 @@ for k, v in pairs(options) do
 end
 
 -- Use ripgrep as the grep program, if available
-if (fn.executable("rg") == 1) then
-  vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+if (vim.fn.executable("rg") == 1) then
+ vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 end
 
 -- Appends

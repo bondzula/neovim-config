@@ -33,8 +33,7 @@ telescope.setup({
 				["<C-u>"] = actions.preview_scrolling_up,
 				["<C-d>"] = actions.preview_scrolling_down,
 
-				["<PageUp>"] = actions.results_scrolling_up,
-				["<PageDown>"] = actions.results_scrolling_down,
+				["<A-d>"] = actions.delete_buffer,
 
 				["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
 				["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
@@ -71,9 +70,6 @@ telescope.setup({
 
 				["<C-u>"] = actions.preview_scrolling_up,
 				["<C-d>"] = actions.preview_scrolling_down,
-
-				["<PageUp>"] = actions.results_scrolling_up,
-				["<PageDown>"] = actions.results_scrolling_down,
 
 				["?"] = actions.which_key,
 			},
@@ -132,5 +128,5 @@ require("telescope").load_extension("fzf")
 require("telescope").load_extension("live_grep_args")
 require("telescope").load_extension("git_worktree")
 
-require("user.telescope.mappings")
+require("plugins/telescope/mappings")
 

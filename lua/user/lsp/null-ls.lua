@@ -16,7 +16,7 @@ null_ls.setup({
 		formatting.trim_whitespace,
 
 		-- Javascript (js, jsx, vue)
-		formatting.prettier,
+		formatting.prettierd,
 
 		diagnostics.eslint_d,
     code_actions.eslint_d,
@@ -36,5 +36,5 @@ null_ls.setup({
     -- Bash formatter
     formatting.shfmt
 	},
-  on_attach = require("user.lsp.handlers").on_attach,
+  --on_attach = require("user.lsp.handlers").on_attach,
 })

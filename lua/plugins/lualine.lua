@@ -4,12 +4,6 @@ if not status_ok then
 	return
 end
 
-local gps_ok, gps = pcall(require, "lualine")
-
-if not gps_ok then
-	return
-end
-
 local hide_in_width = function()
 	return vim.fn.winwidth(0) > 80
 end
