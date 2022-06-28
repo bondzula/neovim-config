@@ -1,5 +1,5 @@
 vim.wo.foldcolumn = '0'
-vim.wo.foldlevel = 10
+vim.wo.foldlevel = 99
 vim.wo.foldenable = true
 
 local handler = function(virtText, lnum, endLnum, width, truncate)
