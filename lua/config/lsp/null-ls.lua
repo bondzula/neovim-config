@@ -36,5 +36,5 @@ null_ls.setup({
     -- Bash formatter
     formatting.shfmt
 	},
-  --on_attach = require("user.lsp.handlers").on_attach,
+  on_attach = require("config.lsp.handlers").on_attach,
 })

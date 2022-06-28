@@ -18,7 +18,7 @@ M.winbar_filetype_exclude = {
 local get_filename = function()
   local filename = vim.fn.expand "%:t"
   local extension = vim.fn.expand "%:e"
-  local f = require "user.functions"
+  local f = require "config.functions"
 
   if not f.isempty(filename) then
     local file_icon, file_icon_color = require("nvim-web-devicons").get_icon_color(
@@ -54,8 +54,8 @@ local get_navic = function()
     return ""
   end
 
-  if not require("user.functions").isempty(navic_location) then
-    return "%#Conceal#" .. require("user.icons").ui.ChevronRight .. "%*" .. " " .. navic_location
+  if not require("config.functions").isempty(navic_location) then
+    return "%#Conceal#" .. require("config.icons").ui.ChevronRight .. "%*" .. " " .. navic_location
   else
     return ""
   end
@@ -74,7 +74,7 @@ M.setup = function()
     return
   end
 
-  local f = require "user.functions"
+  local f = require "config.functions"
   local value = get_filename()
 
   local navic_added = false
@@ -87,7 +87,7 @@ M.setup = function()
   end
 
   if not f.isempty(value) and f.get_buf_option "mod" then
-    local mod = "%#Conceal#" .. require("user.icons").ui.Circle .. "%*"
+    local mod = "%#Conceal#" .. require("config.icons").ui.Circle .. "%*"
     if navic_added then
       value = value .. " " .. mod
     else

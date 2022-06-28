@@ -28,8 +28,6 @@ end
 
 lspconfig.ltex.setup({
   filetypes = { "gitcommit", "markdown", "org", "plaintex", "tex", "NeogitCommitMessage" },
-  on_attach = require("user.lsp.handlers").on_attach,
-  capabilities = require("user.lsp.handlers").capabilities,
 	settings = {
 		ltex = {
 			language = "en-US",

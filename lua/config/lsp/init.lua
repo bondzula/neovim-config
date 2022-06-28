@@ -5,33 +5,16 @@ if not lsp_installer_ok and not lsp_config_ok then
 	return
 end
 
--- Merge two tables lists together
-local function extend(tab1, tab2)
-  for _, value in ipairs(tab2) do
-    table.insert(tab1, value)
-  end
-  return tab1
-end
-
--- Merge two object tables together
-local function object_assign(t1, t2)
-	for key, value in pairs(t2) do
-	   t1[key] = value
-	end
-
-	return t1
-end
-
 -- Servers installed using LSP installer
 local local_servers = {
   "html", "cssls", "bashls", "dockerls", "emmet_ls", "gopls", "intelephense",
-  "zk", "rust_analyzer", "tailwindcss", "terraformls", "tsserver", "rnix",
+  "rust_analyzer", "tailwindcss", "terraformls", "tsserver", "rnix",
   "volar"
 }
 
 -- Servers installed on the systm
 local global_servers = {
-  "sumneko_lua"
+  "sumneko_lua", "ltex"
 }
 
 -- Auto install required servers
@@ -39,25 +22,23 @@ lsp_installer.setup({
   ensure_installed = local_servers,
 })
 
--- lsp_config.sumneko_lua.setup({})
-
 local repeatable = {
-  on_attach = require("user.lsp.handlers").on_attach,
-  capabilities = require("user.lsp.handlers").capabilities,
+  on_attach = require("config.lsp.handlers").on_attach,
+  capabilities = require("config.lsp.handlers").capabilities,
 }
 
 -- Setup the servers
-for _, lsp in pairs(extend(local_servers, global_servers)) do
+for _, lsp in pairs(vim.list_extend(local_servers, global_servers)) do
   -- use the server name, and try to require the file from the lsp directory if
   -- the file is present, add "settings" key from that file to existing table
-  local ok, config = pcall(require, "user.lsp.settings." .. lsp)
+  local ok, config = pcall(require, "config.lsp.settings." .. lsp)
 
   if not ok then
     lsp_config[lsp].setup(repeatable)
   end
 
   if ok then
-    lsp_config[lsp].setup(object_assign(repeatable, config[lsp]))
+    lsp_config[lsp].setup(vim.tbl_extend("keep", repeatable, config[lsp]))
   end
 end
 
@@ -102,4 +83,4 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
   close_events = { "CursorMoved", "BufHidden", "InsertCharPre" },
 })
 
-require("user.lsp.null-ls")
+require("config.lsp.null-ls")

@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 local hl = vim.api.nvim_set_hl
-local icons = require "user.icons"
+local icons = require "config.icons"
 local space = " "
 
 -- hl(0, "NavicFile",          { default = true, link = "CmpItemKindFile" })

@@ -2,18 +2,21 @@ local M = {}
 
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
-	if client.server_capabilities.document_highlight then
-		vim.api.nvim_exec(
-			[[
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]],
-			false
-		)
+	if client.server_capabilities.documentHighlightProvider then
+    vim.api.nvim_create_autocmd({ "CursorHold" }, {
+      callback = vim.lsp.buf.document_highlight
+    })
+
+    vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+      callback = vim.lsp.buf.clear_references
+    })
 	end
+end
+
+local function lsp_navic(client, bufnr)
+  if client.server_capabilities.documentSymbol then
+    require("nvim-navic").attach(client, bufnr)
+  end
 end
 
 local function lsp_keymaps(bufnr)
@@ -37,8 +40,6 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-  require("nvim-navic").attach(client, bufnr)
-
 	if client.name == "tsserver" then
 		client.server_capabilities.document_formatting = false
     client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
@@ -56,6 +57,7 @@ M.on_attach = function(client, bufnr)
 
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
+  lsp_navic(client, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
