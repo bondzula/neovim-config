@@ -15,8 +15,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
   vim.cmd [[packadd packer.nvim]]
 end
 
--- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
+
 if not status_ok then
   return
 end
@@ -41,7 +41,7 @@ vim.cmd [[
 -- Install your plugins here
 return packer.startup(function(use)
   -- My plugins here
-  use "wbthomason/packer.nvim" -- Have packer manage itself
+  use "wbthomason/packer.nvim"
 
   -- Keep this at the start
   use {
@@ -53,6 +53,11 @@ return packer.startup(function(use)
   use "famiu/bufdelete.nvim"
   use "editorconfig/editorconfig-vim"
   use "wellle/targets.vim"
+
+  use {
+    'is0n/fm-nvim',
+    config = function() require("plugins.fm") end
+  }
 
   use {
     "SmiteshP/nvim-navic",
