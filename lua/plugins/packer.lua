@@ -76,11 +76,6 @@ return packer.startup(function(use)
   }
 
   use {
-    "folke/which-key.nvim",
-    config = function() require("plugins.which-key")  end,
-  }
-
-  use {
     'stevearc/dressing.nvim',
     config = function() require("plugins.dressing") end,
   }

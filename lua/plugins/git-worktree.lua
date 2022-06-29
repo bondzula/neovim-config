@@ -12,18 +12,4 @@ worktree.setup({
     autopush = false,
 })
 
-
-local which_key_status_ok, which_key = pcall(require, "which-key")
-
-if not which_key_status_ok then
-	return
-end
-
-which_key.register({
-	g = {
-    name = "Git",
-
-		o = { "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>", "Manage Git Worktrees" },
-		n = { "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>", "New Git Worktree" },
-	},
-}, { prefix = "<leader>" })
+-- TODO map worktree keybind using hydra

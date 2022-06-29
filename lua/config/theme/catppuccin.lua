@@ -34,7 +34,6 @@ catppuccin.setup({
 		cmp = true,
 		gitsigns = true,
 		telescope = true,
-		which_key = true,
 		indent_blankline = {
 			enabled = true,
 			colored_indent_levels = false,
