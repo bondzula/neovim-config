@@ -29,6 +29,4 @@ gitlinker.setup({
         ["git.kernel.org"] = hosts.get_cgit_type_url,
         ["git.savannah.gnu.org"] = hosts.get_cgit_type_url
   },
--- default mapping to call url generation with action_callback
-  mappings = "<leader>gy"
 })
