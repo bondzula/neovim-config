@@ -64,6 +64,12 @@ return packer.startup(function(use)
     config = function() require("plugins.navic") end,
   }
 
+  use {
+    'anuvyklack/hydra.nvim',
+    config = function () require("plugins.hydra") end,
+    requires = 'anuvyklack/keymap-layer.nvim' -- needed only for pink hydras
+  }
+
   -- better quickfix list
   use {
     "https://gitlab.com/yorickpeterse/nvim-pqf.git",
@@ -95,7 +101,7 @@ return packer.startup(function(use)
   --
   use {
     "numToStr/Comment.nvim",
-    config = function() require("plugins.comment")  end,
+    config = function() require("plugins.comment") end,
   }
 
   -- Tmux integration
@@ -110,11 +116,15 @@ return packer.startup(function(use)
   }
 
   -- surround
-  use { "ur4ltz/surround.nvim", config = function()
-   require("surround").setup({
-      mapping_style = "sandwich"
-    })
-  end }
+  use({
+    "kylechui/nvim-surround",
+    branch = "implement-dot-repeat",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  })
 
   -- Statusline
   use {
@@ -164,7 +174,7 @@ return packer.startup(function(use)
   -- Telescope
   use {
     "nvim-telescope/telescope.nvim",
-    config = function () require("plugins.telescope") end,
+    config = function() require("plugins.telescope") end,
     requires = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
@@ -182,7 +192,7 @@ return packer.startup(function(use)
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    config = function () require("plugins.treesitter") end,
+    config = function() require("plugins.treesitter") end,
     requires = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "JoosepAlviste/nvim-ts-context-commentstring",

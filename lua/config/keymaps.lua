@@ -50,9 +50,14 @@ map("n", "J", "mzJ`z", opts)
 
 -- Keep current search result centered
 map("n", "n", "nzz", opts)
-map("n", "N", "nzz", opts)
+map("n", "N", "Nzz", opts)
 
 -- Visual --
 -- Stay in indent mode
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
+
+-- TODO: Remove from here
+map("n", "<leader>lf", vim.lsp.buf.format)
+map("n", "<leader>bd", "<cmd>Bdelete<cr>")
+map("n", "<leader>bl", "<cmd>Telescope buffers<cr>")

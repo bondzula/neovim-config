@@ -52,5 +52,52 @@ gitsigns.setup({
     enable = false,
   },
   on_attach = function(buffnum)
+    local status_hydra, hydra = pcall(require, "hydra")
+
+    if not status_hydra then
+      return
+    end
+
+    local hydra_hint = [[
+ _J_: next hunk   _s_: stage hunk        _d_: show deleted   _R_: reset whole buffer  _b_: blame line      ^
+ _K_: prev hunk   _S_: stage buffer      _k_: preview hunk   _r_: reset hunk          _u_: undo stage hunk ^
+ ^
+ ^ ^                              _g_: Lazygit              _q_: exit
+]]
+
+    -- TODO: stage only visualy selected lines
+    -- TODO: integrate git linker, both visual and normal modes
+
+    hydra({
+      hint = hydra_hint,
+      config = {
+        color = 'pink',
+        invoke_on_body = true,
+        buffer = buffnum,
+        hint = {
+          position = 'bottom',
+          border = 'rounded'
+        },
+      },
+      mode = { 'n', 'v' },
+      body = '<leader>g',
+      heads = {
+        { 'J', gitsigns.next_hunk, { silent = true, nowait = true, desc = "Just to next hunk" } },
+        { 'K', gitsigns.prev_hunk, { silent = true, nowait = true, desc = "Just to previous hunk" } },
+        { 's', gitsigns.stage_hunk, { silent = true, nowait = true, desc = "Stage hunk" } },
+        { 'S', gitsigns.stage_buffer, { silent = true, nowait = true, desc = "Stage whole buffer" } },
+        { 'r', gitsigns.reset_hunk, { silent = true, nowait = true, desc = "Reset hunk" } },
+        { 'R', gitsigns.reset_buffer, { silent = true, nowait = true, desc = "Reset the whole buffer" } },
+        { 'u', gitsigns.undo_stage_hunk },
+        { 'k', gitsigns.preview_hunk },
+        { 'd', gitsigns.toggle_deleted, { nowait = true } },
+        { 'b', gitsigns.blame_line },
+
+        { 'y', function() require("gitlinker").get_buf_range_url("v") end, { silent = true } },
+
+        { 'g', '<cmd>Lazygit<CR>', { exit = true, nowait = true } },
+        { 'q', nil, { exit = true, nowait = true } },
+      }
+    })
   end
 })

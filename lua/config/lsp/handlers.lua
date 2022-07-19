@@ -3,13 +3,13 @@ local M = {}
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
 	if client.server_capabilities.documentHighlightProvider then
-    vim.api.nvim_create_autocmd({ "CursorHold" }, {
-      callback = vim.lsp.buf.document_highlight
-    })
-
-    vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-      callback = vim.lsp.buf.clear_references
-    })
+    -- vim.api.nvim_create_autocmd({ "CursorHold" }, {
+    --   callback = vim.lsp.buf.document_highlight
+    -- })
+    --
+    -- vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+    --   callback = vim.lsp.buf.clear_references
+    -- })
 	end
 end
 
